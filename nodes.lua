@@ -2,9 +2,9 @@
 -- undecorated coloured glass, all using plain glass texture
 local glass_list = {
 	{"black", "Darkened", "292421",}, {"blue", "Blue", "0000FF",},
-	{"cyan", "Cyan", "00FFFF",}, {"green", "Green", "00FF00",}, 
-	{"magenta", "Magenta", "FF00FF",}, {"orange", "Orange", "FF6103",}, 
-	{"purple", "Purple", "800080",}, {"red", "Red", "FF0000",}, 
+	{"cyan", "Cyan", "00FFFF",}, {"green", "Green", "00FF00",},
+	{"magenta", "Magenta", "FF00FF",}, {"orange", "Orange", "FF6103",},
+	{"purple", "Purple", "800080",}, {"red", "Red", "FF0000",},
 	{"yellow", "Yellow", "FFFF00",}, {"frosted", "Frosted", "FFFFFF",}
 }
 
@@ -124,7 +124,7 @@ for i in ipairs(port_list) do
 				 "default_"..name.. ".png", -- left
 				 "abriglass_porthole_"..name..".png", -- back
 				 "abriglass_porthole_"..name..".png", -- front
-				 }, 
+				 },
 		is_ground_content = false,
 		sunlight_propagates = true,
 	})
@@ -164,7 +164,7 @@ for i in ipairs(oneway_list) do
 				 "abriglass_oneway_plain_glass.png", -- left
 				 "abriglass_"..image1, -- back
 				 image2, -- front
-				 }, 
+				 },
 		is_ground_content = false,
 		sunlight_propagates = true,
 		inventory_image = minetest.inventorycube("abriglass_"..image1)
@@ -206,7 +206,7 @@ minetest.register_node("abriglass:ghost_crystal", {
 -- hidden light node
 minetest.register_node("abriglass:hidden_light", {
 	description = "Hidden Light",
-	tiles = {"abriglass_oneway_plain_glass.png"}, 
+	tiles = {"abriglass_oneway_plain_glass.png"},
 	groups = {cracky = 3, not_in_creative_inventory=1},
 	use_texture_alpha = true,
 	sunlight_propagates = true,

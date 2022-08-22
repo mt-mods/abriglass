@@ -4,3 +4,5 @@ abriglass = {}
 
 dofile(modpath.."nodes.lua")
 dofile(modpath.."crafting.lua")
+
+abriglass.init = true
