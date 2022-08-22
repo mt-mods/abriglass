@@ -15,7 +15,6 @@ local plain_colors = {
 	"green", "blue", "red", "yellow",
 }
 
-local i
 for i in ipairs(plain_colors) do
 	local name = plain_colors[i]
 	local nodesuffix = 'glass_light_'..name
@@ -38,7 +37,7 @@ end
 
 -- undecorated coloured glass recipes
 local dye_list = {
-	{"black", "black",}, 
+	{"black", "black",},
 	{"blue", "blue",},
 	{"cyan", "cyan",},
 	{"green", "green",},
@@ -46,7 +45,7 @@ local dye_list = {
 	{"orange", "orange",},
 	{"purple", "violet",},
 	{"red", "red",},
-	{"yellow", "yellow",}, 
+	{"yellow", "yellow",},
 	{"frosted", "white",},
 }
 
@@ -137,7 +136,15 @@ minetest.register_craft({
 
 
 -- cooking recipes
-local cook_list = { "stainedglass_pattern01", "stainedglass_pattern02", "stainedglass_pattern03", "stainedglass_pattern04", "stainedglass_pattern05", "stainedglass_tiles_dark", "stainedglass_tiles_pale"}
+local cook_list = {
+	"stainedglass_pattern01",
+	"stainedglass_pattern02",
+	"stainedglass_pattern03",
+	"stainedglass_pattern04",
+	"stainedglass_pattern05",
+	"stainedglass_tiles_dark",
+	"stainedglass_tiles_pale"
+}
 
 for i = 1, #cook_list do
 	local name = cook_list[i]
