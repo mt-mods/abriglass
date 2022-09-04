@@ -179,6 +179,7 @@ for i in ipairs(port_list) do
 				 },
 		is_ground_content = false,
 		sunlight_propagates = true,
+		use_texture_alpha = "clip",
 	})
 end
 
@@ -217,6 +218,7 @@ for i in ipairs(oneway_list) do
 				 "abriglass_"..image1, -- back
 				 image2, -- front
 				 },
+		use_texture_alpha = "blend",
 		is_ground_content = false,
 		sunlight_propagates = true,
 		inventory_image = minetest.inventorycube("abriglass_"..image1)
