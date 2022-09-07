@@ -1,6 +1,6 @@
 
 -- undecorated coloured glass, all using plain glass texture
-local glass_list = {
+abriglass.glass_list = {
 	{"black", "Darkened", "292421",}, {"blue", "Blue", "0000FF",},
 	{"cyan", "Cyan", "00FFFF",}, {"green", "Green", "00FF00",},
 	{"magenta", "Magenta", "FF00FF",}, {"orange", "Orange", "FF6103",},
@@ -8,24 +8,60 @@ local glass_list = {
 	{"yellow", "Yellow", "FFFF00",}, {"frosted", "Frosted", "FFFFFF",}
 }
 
-for i in ipairs(glass_list) do
-	local name = glass_list[i][1]
-	local description = glass_list[i][2]
-	local colour = glass_list[i][3]
-
-	minetest.register_node("abriglass:stained_glass_"..name, {
-		description = description.." Glass",
-		tiles = {"abriglass_plainglass.png^[colorize:#"..colour..":122"},
-		groups = {cracky = 3},
-		use_texture_alpha = "blend",
-		sunlight_propagates = true,
-		light_source = 4,
-		drawtype = "glasslike",
-		paramtype = "light",
-		sounds = default.node_sound_glass_defaults(),
-	})
+local palette = "[combine:16x16:"
+for k, v in ipairs(abriglass.glass_list) do
+	palette = palette .. ":" .. (k-1) .. ",0=[combine\\:1x1\\^[noalpha\\^[colorize\\:#" .. v[3] .. "\\:255"
 end
 
+minetest.register_node("abriglass:stained_glass_hardware", {
+	description = "Hardware Glass",
+	tiles = {"abriglass_baseglass.png"},
+	groups = {cracky = 3},
+	use_texture_alpha = "blend",
+	sunlight_propagates = true,
+	light_source = 4,
+	drawtype = "glasslike",
+	paramtype = "light",
+	paramtype2 = "color",
+	palette = palette,
+	sounds = default.node_sound_glass_defaults(),
+	preserve_metadata = function(pos, oldnode, oldmeta, drops)
+		if abriglass.glass_list[oldnode.param2 + 1] then
+			drops[1]:get_meta():set_string("description", abriglass.glass_list[oldnode.param2 + 1][1] .. " glass")
+		else
+			drops[1]:get_meta():set_string("description", "Hardware Glass")
+		end
+    end,
+})
+
+--convert old glass to hardware colored
+minetest.register_lbm({
+	label="abriglass: convert old glass",
+	name="abriglass:glass_convert",
+	nodenames={
+		"abriglass:stained_glass_black", "abriglass:stained_glass_blue",
+		"abriglass:stained_glass_cyan", "abriglass:stained_glass_green",
+		"abriglass:stained_glass_magenta", "abriglass:stained_glass_orange",
+		"abriglass:stained_glass_purple", "abriglass:stained_glass_red",
+		"abriglass:stained_glass_yellow", "abriglass:stained_glass_frosted",
+	},
+	run_at_every_load = true,
+	action = function(pos, node)
+		local convert = {
+			["abriglass:stained_glass_black"] = 0,
+			["abriglass:stained_glass_blue"] = 1,
+			["abriglass:stained_glass_cyan"] = 2,
+			["abriglass:stained_glass_green"] = 3,
+			["abriglass:stained_glass_magenta"] = 4,
+			["abriglass:stained_glass_orange"] = 5,
+			["abriglass:stained_glass_purple"] = 6,
+			["abriglass:stained_glass_red"] = 7,
+			["abriglass:stained_glass_yellow"] = 8,
+			["abriglass:stained_glass_frosted"] = 9,
+		}
+		minetest.set_node(pos, {name="abriglass:stained_glass_hardware", param2 = convert[node.name]})
+	end,
+})
 
 -- boring glass because why not?
 minetest.register_node("abriglass:clear_glass", {
@@ -39,33 +75,49 @@ minetest.register_node("abriglass:clear_glass", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
-
 -- glass lights
-local light_list = {
-	{"glass_light_green", "Green", "lightgreen",},
-	{"glass_light_blue", "Blue", "lightblue",},
-	{"glass_light_red", "Red", "lightred",},
-	{"glass_light_yellow", "Yellow", "lightyellow",},
-}
+minetest.register_node("abriglass:glass_light_hardware", {
+	description = "Hardware Glass Light",
+	tiles = {"abriglass_baseglass.png"},
+	overlay_tiles = {
+        { name = "abriglass_clearglass.png", color = "white" }
+    },
+	groups = {cracky = 3},
+	use_texture_alpha = "blend",
+	sunlight_propagates = true,
+	paramtype = "light",
+	drawtype = "glasslike",
+	paramtype2 = "color",
+	palette = palette,
+	sounds = default.node_sound_glass_defaults(),
+	preserve_metadata = function(pos, oldnode, oldmeta, drops)
+		if abriglass.glass_list[oldnode.param2 + 1] then
+			drops[1]:get_meta():set_string("description", abriglass.glass_list[oldnode.param2 + 1][1] .. " glass light")
+		else
+			drops[1]:get_meta():set_string("description", "Hardware Glass Light")
+		end
+    end,
+})
 
-for i in ipairs(light_list) do
-	local name = light_list[i][1]
-	local description = light_list[i][2]
-	local image = light_list[i][3]
-
-	minetest.register_node("abriglass:" ..name, {
-		description = description.. "Glass Light",
-		tiles = {"abriglass_" ..image.. ".png"},
-		groups = {cracky = 3},
-		use_texture_alpha = "blend",
-		sunlight_propagates = true,
-		light_source = 14,
-		drawtype = "glasslike",
-		paramtype = "light",
-		sounds = default.node_sound_glass_defaults(),
-	})
-end
-
+--convert old glass to hardware colored
+minetest.register_lbm({
+	label="abriglass: convert old light glass",
+	name="abriglass:lightglass_convert",
+	nodenames={
+		"abriglass:glass_light_green", "abriglass:glass_light_blue",
+		"abriglass:glass_light_yellow", "abriglass:glass_light_red"
+	},
+	run_at_every_load = true,
+	action = function(pos, node)
+		local convert = {
+			["abriglass:glass_light_green"] = 3,
+			["abriglass:glass_light_blue"] = 1,
+			["abriglass:glass_light_yellow"] = 8,
+			["abriglass:glass_light_red"] = 7,
+		}
+		minetest.set_node(pos, {name="abriglass:glass_light_hardware", param2 = convert[node.name]})
+	end,
+})
 
 -- patterned glass
 local pattern_list = {   --{name, description, image}

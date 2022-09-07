@@ -9,33 +9,7 @@ minetest.register_craft({
 	}
 })
 
-
--- glass light recipes
-local plain_colors = {
-	"green", "blue", "red", "yellow",
-}
-
-for i in ipairs(plain_colors) do
-	local name = plain_colors[i]
-	local nodesuffix = 'glass_light_'..name
-
-	minetest.register_craft({
-		output = 'abriglass:'..nodesuffix..' 4',
-		recipe = {
-			{'abriglass:clear_glass', 'default:torch', 'abriglass:clear_glass' },
-			{'abriglass:clear_glass', 'dye:'..name, 'abriglass:clear_glass' },
-		}
-	})
-
-	minetest.register_craft({
-		type = "cooking",
-		recipe = "abriglass:"..nodesuffix,
-		output = "abriglass:clear_glass",
-	})
-end
-
-
--- undecorated coloured glass recipes
+-- undecorated coloured glass recipes / light glass
 local dye_list = {
 	{"black", "black",},
 	{"blue", "blue",},
@@ -49,22 +23,37 @@ local dye_list = {
 	{"frosted", "white",},
 }
 
-for i in ipairs(dye_list) do
-	local name = dye_list[i][1]
-	local dye = dye_list[i][2]
+for k, v in pairs(dye_list) do
+    local out_item = ItemStack(minetest.itemstring_with_palette("abriglass:stained_glass_hardware", k - 1))
+    out_item:get_meta():set_string("description", v[1] .. " glass")
+    minetest.register_craft({
+        output = out_item:to_string(),
+        recipe = {
+			{'abriglass:clear_glass', '', 'abriglass:clear_glass' },
+			{'abriglass:clear_glass', 'dye:'..v[2], 'abriglass:clear_glass' },
+			{'abriglass:clear_glass', '', 'abriglass:clear_glass' },
+		}
+    })
 
 	minetest.register_craft({
-		output = 'abriglass:stained_glass_'..name..' 6',
+		type = "cooking",
+		recipe = out_item:to_string(),
+		output = "abriglass:clear_glass",
+	})
+
+	out_item = ItemStack(minetest.itemstring_with_palette("abriglass:glass_light_hardware", k - 1))
+    out_item:get_meta():set_string("description", v[1] .. " glass light")
+	minetest.register_craft({
+		output = out_item:to_string(),
 		recipe = {
-			{'abriglass:clear_glass', '', 'abriglass:clear_glass' },
-			{'abriglass:clear_glass', 'dye:'..dye, 'abriglass:clear_glass' },
-			{'abriglass:clear_glass', '', 'abriglass:clear_glass' },
+			{'abriglass:clear_glass', 'default:torch', 'abriglass:clear_glass' },
+			{'abriglass:clear_glass', 'dye:'..v[2], 'abriglass:clear_glass' },
 		}
 	})
 
 	minetest.register_craft({
 		type = "cooking",
-		recipe = "abriglass:stained_glass_"..name,
+		recipe = out_item:to_string(),
 		output = "abriglass:clear_glass",
 	})
 end
