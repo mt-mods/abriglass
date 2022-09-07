@@ -202,16 +202,20 @@ minetest.register_node("abriglass:ghost_crystal", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
-
--- hidden light node
-minetest.register_node("abriglass:hidden_light", {
-	description = "Hidden Light",
-	tiles = {"abriglass_oneway_plain_glass.png"},
-	groups = {cracky = 3, not_in_creative_inventory=1},
-	use_texture_alpha = "blend",
-	sunlight_propagates = true,
-	walkable = false,
-	light_source = 7,
-	drawtype = "glasslike",
-	paramtype = "light",
-})
+if not minetest.get_modpath("maptools") then
+	-- hidden light node
+	minetest.register_node("abriglass:hidden_light", {
+		description = "Hidden Light",
+		tiles = {"abriglass_oneway_plain_glass.png"},
+		groups = {cracky = 3, not_in_creative_inventory=1},
+		use_texture_alpha = "blend",
+		sunlight_propagates = true,
+		walkable = false,
+		light_source = 14,
+		drawtype = "glasslike",
+		paramtype = "light",
+		pointable = false,
+	})
+else
+	minetest.register_alias("abriglass:hidden_light", "maptools:lightbulb")
+end
