@@ -38,4 +38,4 @@ Textures for this mod are released under CC BY-SA 4.0 (https://creativecommons.o
 Recommended Additions
 -----------------------
 
-- [abriflame](https://github.com/Ezhh/abriflame) allows coloured flames to be lit on coloured glass nodes.
+- [abriflame](https://github.com/mt-mods/abriflame) allows coloured flames to be lit on coloured glass nodes.
