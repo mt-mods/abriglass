@@ -45,7 +45,7 @@ minetest.register_lbm({
 		"abriglass:stained_glass_purple", "abriglass:stained_glass_red",
 		"abriglass:stained_glass_yellow", "abriglass:stained_glass_frosted",
 	},
-	run_at_every_load = true,
+	run_at_every_load = false,
 	action = function(pos, node)
 		local convert = {
 			["abriglass:stained_glass_black"] = 0,
@@ -107,7 +107,7 @@ minetest.register_lbm({
 		"abriglass:glass_light_green", "abriglass:glass_light_blue",
 		"abriglass:glass_light_yellow", "abriglass:glass_light_red"
 	},
-	run_at_every_load = true,
+	run_at_every_load = false,
 	action = function(pos, node)
 		local convert = {
 			["abriglass:glass_light_green"] = 3,
