@@ -23,6 +23,8 @@ local dye_list = {
 	{"frosted", "white",},
 }
 
+sg_conversion_table = {}
+
 for k, v in pairs(dye_list) do
     local out_item = ItemStack(minetest.itemstring_with_palette("abriglass:stained_glass_hardware", k - 1))
     out_item:get_meta():set_string("description", v[1] .. " glass")
@@ -40,6 +42,8 @@ for k, v in pairs(dye_list) do
 		recipe = out_item:to_string(),
 		output = "abriglass:clear_glass",
 	})
+
+	sg_conversion_table[v[1]] = out_item:to_string()
 
 	out_item = ItemStack(minetest.itemstring_with_palette("abriglass:glass_light_hardware", k - 1))
     out_item:get_meta():set_string("description", v[1] .. " glass light")
@@ -63,9 +67,9 @@ end
 minetest.register_craft({
 	output = 'abriglass:stainedglass_pattern01 9',
 	recipe = {
-		{'abriglass:stained_glass_yellow', 'abriglass:stained_glass_yellow', 'abriglass:stained_glass_yellow' },
-		{'abriglass:stained_glass_yellow', 'abriglass:stained_glass_blue', 'abriglass:stained_glass_yellow' },
-		{'abriglass:stained_glass_yellow', 'abriglass:stained_glass_yellow', 'abriglass:stained_glass_yellow' },
+		{sg_conversion_table['yellow'], sg_conversion_table['yellow'], sg_conversion_table['yellow'] },
+		{sg_conversion_table['yellow'], sg_conversion_table['yellow'], sg_conversion_table['yellow'] },
+		{sg_conversion_table['yellow'], sg_conversion_table['yellow'], sg_conversion_table['yellow'] },
 	}
 })
 
@@ -81,45 +85,45 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'abriglass:stainedglass_pattern03 9',
 	recipe = {
-		{'abriglass:stained_glass_red', 'abriglass:clear_glass', 'abriglass:stained_glass_red' },
+		{sg_conversion_table['red'], 'abriglass:clear_glass', sg_conversion_table['red'] },
 		{'abriglass:clear_glass', 'abriglass:clear_glass', 'abriglass:clear_glass' },
-		{'abriglass:stained_glass_red', 'abriglass:clear_glass', 'abriglass:stained_glass_red' },
+		{sg_conversion_table['red'], 'abriglass:clear_glass', sg_conversion_table['red'] },
 	}
 })
 
 minetest.register_craft({
 	output = 'abriglass:stainedglass_pattern04 9',
 	recipe = {
-		{'abriglass:stained_glass_green', 'abriglass:stained_glass_red', 'abriglass:stained_glass_green' },
-		{'abriglass:stained_glass_red', 'abriglass:stained_glass_blue', 'abriglass:stained_glass_red' },
-		{'abriglass:stained_glass_green', 'abriglass:stained_glass_red', 'abriglass:stained_glass_green' },
+		{sg_conversion_table['green'], sg_conversion_table['red'], sg_conversion_table['green'] },
+		{sg_conversion_table['red'], sg_conversion_table['blue'], sg_conversion_table['red'] },
+		{sg_conversion_table['green'], sg_conversion_table['red'], sg_conversion_table['green'] },
 	}
 })
 
 minetest.register_craft({
 	output = 'abriglass:stainedglass_pattern05 9',
 	recipe = {
-		{'abriglass:stained_glass_blue', 'abriglass:stained_glass_blue', 'abriglass:stained_glass_blue' },
-		{'abriglass:stained_glass_blue', 'abriglass:stained_glass_green', 'abriglass:stained_glass_blue' },
-		{'abriglass:stained_glass_blue', 'abriglass:stained_glass_blue', 'abriglass:stained_glass_blue' },
+		{sg_conversion_table['blue'], sg_conversion_table['blue'], sg_conversion_table['blue'] },
+		{sg_conversion_table['blue'], sg_conversion_table['green'], sg_conversion_table['blue'] },
+		{sg_conversion_table['blue'], sg_conversion_table['blue'], sg_conversion_table['blue'] },
 	}
 })
 
 minetest.register_craft({
 	output = 'abriglass:stainedglass_tiles_dark 7',
 	recipe = {
-		{'abriglass:stained_glass_red', 'abriglass:stained_glass_green', 'abriglass:stained_glass_blue' },
-		{'abriglass:stained_glass_yellow', 'abriglass:stained_glass_magenta', 'abriglass:stained_glass_cyan' },
-		{'', 'abriglass:stained_glass_black', '' },
+		{sg_conversion_table['red'], sg_conversion_table['green'], sg_conversion_table['blue'] },
+		{sg_conversion_table['yellow'], sg_conversion_table['magenta'], sg_conversion_table['cyan'] },
+		{'', sg_conversion_table['black'], '' },
 	}
 })
 
 minetest.register_craft({
 	output = 'abriglass:stainedglass_tiles_pale 7',
 	recipe = {
-		{'abriglass:stained_glass_red', 'abriglass:stained_glass_green', 'abriglass:stained_glass_blue' },
-		{'abriglass:stained_glass_yellow', 'abriglass:stained_glass_magenta', 'abriglass:stained_glass_cyan' },
-		{'', 'abriglass:stained_glass_frosted', '' },
+		{sg_conversion_table['red'], sg_conversion_table['green'], sg_conversion_table['blue'] },
+		{sg_conversion_table['yellow'], sg_conversion_table['magenta'], sg_conversion_table['cyan'] },
+		{'', sg_conversion_table['frosted'], '' },
 	}
 })
 
