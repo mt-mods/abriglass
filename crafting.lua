@@ -23,7 +23,7 @@ local dye_list = {
 	{"frosted", "white",},
 }
 
-sg_conversion_table = {}
+local sg_conversion_table = {}
 
 for k, v in pairs(dye_list) do
     local out_item = ItemStack(minetest.itemstring_with_palette("abriglass:stained_glass_hardware", k - 1))
@@ -131,7 +131,7 @@ local hardware_colored_crafts_1 = {
 	--end second set
 }
 
-hcc_encoded_1 = {}
+local hcc_encoded_1 = {}
 
 --encode things we care about, in order, since itemstack:to_string is worthless for comparisions
 local function craft_encode(input)
