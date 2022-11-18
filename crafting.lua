@@ -65,15 +65,6 @@ end
 
 -- patterned glass recipes
 minetest.register_craft({
-	output = 'abriglass:stainedglass_pattern01 9',
-	recipe = {
-		{sg_conversion_table['yellow'], sg_conversion_table['yellow'], sg_conversion_table['yellow'] },
-		{sg_conversion_table['yellow'], sg_conversion_table['yellow'], sg_conversion_table['yellow'] },
-		{sg_conversion_table['yellow'], sg_conversion_table['yellow'], sg_conversion_table['yellow'] },
-	}
-})
-
-minetest.register_craft({
 	output = 'abriglass:stainedglass_pattern02 9',
 	recipe = {
 		{'abriglass:clear_glass', 'abriglass:clear_glass', 'abriglass:clear_glass' },
@@ -82,50 +73,113 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = 'abriglass:stainedglass_pattern03 9',
-	recipe = {
-		{sg_conversion_table['red'], 'abriglass:clear_glass', sg_conversion_table['red'] },
-		{'abriglass:clear_glass', 'abriglass:clear_glass', 'abriglass:clear_glass' },
-		{sg_conversion_table['red'], 'abriglass:clear_glass', sg_conversion_table['red'] },
-	}
-})
+--minetest with hardware coloring sucks
 
-minetest.register_craft({
-	output = 'abriglass:stainedglass_pattern04 9',
-	recipe = {
-		{sg_conversion_table['green'], sg_conversion_table['red'], sg_conversion_table['green'] },
-		{sg_conversion_table['red'], sg_conversion_table['blue'], sg_conversion_table['red'] },
-		{sg_conversion_table['green'], sg_conversion_table['red'], sg_conversion_table['green'] },
+--the last item of each set is what minetest will trigger on for these
+local hardware_colored_crafts_1 = {
+	--start first set
+	{
+		item = 'abriglass:stainedglass_tiles_dark 7',
+		craft = {
+			{sg_conversion_table['red'], sg_conversion_table['green'], sg_conversion_table['blue'] },
+			{sg_conversion_table['yellow'], sg_conversion_table['magenta'], sg_conversion_table['cyan'] },
+			{'', sg_conversion_table['black'], '' },
+		}
+	},
+	{
+		item = 'abriglass:stainedglass_tiles_pale 7',
+		craft = {
+			{sg_conversion_table['red'], sg_conversion_table['green'], sg_conversion_table['blue'] },
+			{sg_conversion_table['yellow'], sg_conversion_table['magenta'], sg_conversion_table['cyan'] },
+			{'', sg_conversion_table['frosted'], '' },
+		}
+	},
+	--end first set
+	--start second ser
+	{
+		item = "abriglass:stainedglass_pattern01 9",
+		craft = {
+			{sg_conversion_table['yellow'], sg_conversion_table['yellow'], sg_conversion_table['yellow'] },
+			{sg_conversion_table['yellow'], sg_conversion_table['yellow'], sg_conversion_table['yellow'] },
+			{sg_conversion_table['yellow'], sg_conversion_table['yellow'], sg_conversion_table['yellow'] },
+		}
+	},
+	{
+		item = "abriglass:stainedglass_pattern03 9",
+		craft = {
+			{sg_conversion_table['red'], 'abriglass:clear_glass', sg_conversion_table['red'] },
+			{'abriglass:clear_glass', 'abriglass:clear_glass', 'abriglass:clear_glass' },
+			{sg_conversion_table['red'], 'abriglass:clear_glass', sg_conversion_table['red'] },
+		}
+	},
+	{
+		item = "abriglass:stainedglass_pattern04 9",
+		craft = {
+			{sg_conversion_table['green'], sg_conversion_table['red'], sg_conversion_table['green'] },
+			{sg_conversion_table['red'], sg_conversion_table['blue'], sg_conversion_table['red'] },
+			{sg_conversion_table['green'], sg_conversion_table['red'], sg_conversion_table['green'] },
+		}
+	},
+	{
+		item = "abriglass:stainedglass_pattern05 9",
+		craft = {
+			{sg_conversion_table['blue'], sg_conversion_table['blue'], sg_conversion_table['blue'] },
+			{sg_conversion_table['blue'], sg_conversion_table['green'], sg_conversion_table['blue'] },
+			{sg_conversion_table['blue'], sg_conversion_table['blue'], sg_conversion_table['blue'] },
+		}
 	}
-})
+	--end second set
+}
 
-minetest.register_craft({
-	output = 'abriglass:stainedglass_pattern05 9',
-	recipe = {
-		{sg_conversion_table['blue'], sg_conversion_table['blue'], sg_conversion_table['blue'] },
-		{sg_conversion_table['blue'], sg_conversion_table['green'], sg_conversion_table['blue'] },
-		{sg_conversion_table['blue'], sg_conversion_table['blue'], sg_conversion_table['blue'] },
-	}
-})
+hcc_encoded_1 = {}
 
-minetest.register_craft({
-	output = 'abriglass:stainedglass_tiles_dark 7',
-	recipe = {
-		{sg_conversion_table['red'], sg_conversion_table['green'], sg_conversion_table['blue'] },
-		{sg_conversion_table['yellow'], sg_conversion_table['magenta'], sg_conversion_table['cyan'] },
-		{'', sg_conversion_table['black'], '' },
-	}
-})
+--encode things we care about, in order, since itemstack:to_string is worthless
+local function craft_encode(input)
+	local output = ""
+	for _, v in ipairs(input) do --care about order
+		local row = ""
+		for _, j in ipairs(v) do --care about order
+			local item = ItemStack(j)
+			row = row .. item:get_name() .. (item:get_meta():get("description") or "") .. (item:get_meta():get("palette_index") or "")
+		end
+		output = output .. "," .. row
+	end
+	return output
+end
 
-minetest.register_craft({
-	output = 'abriglass:stainedglass_tiles_pale 7',
-	recipe = {
-		{sg_conversion_table['red'], sg_conversion_table['green'], sg_conversion_table['blue'] },
-		{sg_conversion_table['yellow'], sg_conversion_table['magenta'], sg_conversion_table['cyan'] },
-		{'', sg_conversion_table['frosted'], '' },
-	}
-})
+--we actually care about order
+for _,v in ipairs(hardware_colored_crafts_1) do
+	minetest.register_craft({
+		output = v.item,
+		recipe = v.craft
+	})
+
+	hcc_encoded_1[craft_encode(v.craft)] = v.item
+end
+
+local function hcc_1_func(itemstack, player, old_craft_grid, craft_inv)
+	--return things we dont care about | check for the last item of each set since everything does stuff in order
+	if itemstack:get_name()~="abriglass:stainedglass_pattern05" and itemstack:get_name()~="abriglass:stainedglass_tiles_pale" then return end
+
+	local encoded = craft_encode({
+		{old_craft_grid[1], old_craft_grid[2], old_craft_grid[3]},
+		{old_craft_grid[4], old_craft_grid[5], old_craft_grid[6]},
+		{old_craft_grid[7], old_craft_grid[8], old_craft_grid[9]},
+	})
+	if (hcc_encoded_1[encoded]) then
+		return ItemStack(hcc_encoded_1[encoded])
+	else
+		return ItemStack("")
+	end
+end
+
+minetest.register_craft_predict(function(itemstack, player, old_craft_grid, craft_inv)
+	return hcc_1_func(itemstack, player, old_craft_grid, craft_inv)
+end)
+
+minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
+	return hcc_1_func(itemstack, player, old_craft_grid, craft_inv)
+end)
 
 
 -- cooking recipes
