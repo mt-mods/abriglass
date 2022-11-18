@@ -73,7 +73,7 @@ minetest.register_craft({
 	}
 })
 
---minetest with hardware coloring sucks
+--tldr: minetest with hardware coloring sucks | this is one massive hack to work around it
 
 --the last item of each set is what minetest will trigger on for these
 local hardware_colored_crafts_1 = {
@@ -133,14 +133,14 @@ local hardware_colored_crafts_1 = {
 
 hcc_encoded_1 = {}
 
---encode things we care about, in order, since itemstack:to_string is worthless
+--encode things we care about, in order, since itemstack:to_string is worthless for comparisions
 local function craft_encode(input)
 	local output = ""
 	for _, v in ipairs(input) do --care about order
 		local row = ""
 		for _, j in ipairs(v) do --care about order
 			local item = ItemStack(j)
-			row = row .. item:get_name() .. (item:get_meta():get("description") or "") .. (item:get_meta():get("palette_index") or "")
+			row = row..item:get_name()..(item:get_meta():get("description") or "")..(item:get_meta():get("palette_index") or "")
 		end
 		output = output .. "," .. row
 	end
@@ -159,7 +159,8 @@ end
 
 local function hcc_1_func(itemstack, player, old_craft_grid, craft_inv)
 	--return things we dont care about | check for the last item of each set since everything does stuff in order
-	if itemstack:get_name()~="abriglass:stainedglass_pattern05" and itemstack:get_name()~="abriglass:stainedglass_tiles_pale" then return end
+	if itemstack:get_name()~="abriglass:stainedglass_pattern05"
+		and itemstack:get_name()~="abriglass:stainedglass_tiles_pale" then return end
 
 	local encoded = craft_encode({
 		{old_craft_grid[1], old_craft_grid[2], old_craft_grid[3]},
