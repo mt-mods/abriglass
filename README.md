@@ -14,7 +14,7 @@ Stained glass Minetest mod by Shara RedCat which adds:
 Crafting
 ---------
 
-Plain abriglass can be crafted using default glass. Coloured glass can then be made using this and dye. 
+Clear abriglass can be crafted using default glass. Coloured glass can then be made using this and dye. 
 
 Glass lights can be crafted using glass, dye and torches.
 
