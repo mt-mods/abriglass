@@ -263,3 +263,12 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = 'abriglass:ghost_crystal 4',
+	recipe = {
+		{'dye:cyan', 'abriglass:clear_glass', 'dye:cyan'},
+		{'abriglass:clear_glass', 'default:meselamp', 'abriglass:clear_glass'},
+		{'dye:cyan', 'abriglass:clear_glass', 'dye:cyan'},
+	}
+})
+
