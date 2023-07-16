@@ -34,35 +34,6 @@ minetest.register_node("abriglass:stained_glass_hardware", {
     end,
 })
 
---convert old glass to hardware colored
-minetest.register_lbm({
-	label="abriglass: convert old glass",
-	name="abriglass:glass_convert",
-	nodenames={
-		"abriglass:stained_glass_black", "abriglass:stained_glass_blue",
-		"abriglass:stained_glass_cyan", "abriglass:stained_glass_green",
-		"abriglass:stained_glass_magenta", "abriglass:stained_glass_orange",
-		"abriglass:stained_glass_purple", "abriglass:stained_glass_red",
-		"abriglass:stained_glass_yellow", "abriglass:stained_glass_frosted",
-	},
-	run_at_every_load = false,
-	action = function(pos, node)
-		local convert = {
-			["abriglass:stained_glass_black"] = 0,
-			["abriglass:stained_glass_blue"] = 1,
-			["abriglass:stained_glass_cyan"] = 2,
-			["abriglass:stained_glass_green"] = 3,
-			["abriglass:stained_glass_magenta"] = 4,
-			["abriglass:stained_glass_orange"] = 5,
-			["abriglass:stained_glass_purple"] = 6,
-			["abriglass:stained_glass_red"] = 7,
-			["abriglass:stained_glass_yellow"] = 8,
-			["abriglass:stained_glass_frosted"] = 9,
-		}
-		minetest.set_node(pos, {name="abriglass:stained_glass_hardware", param2 = convert[node.name]})
-	end,
-})
-
 -- boring glass because why not?
 minetest.register_node("abriglass:clear_glass", {
 	description = "Clear Glass",
@@ -97,26 +68,6 @@ minetest.register_node("abriglass:glass_light_hardware", {
 			drops[1]:get_meta():set_string("description", "Hardware Glass Light")
 		end
     end,
-})
-
---convert old glass to hardware colored
-minetest.register_lbm({
-	label="abriglass: convert old light glass",
-	name="abriglass:lightglass_convert",
-	nodenames={
-		"abriglass:glass_light_green", "abriglass:glass_light_blue",
-		"abriglass:glass_light_yellow", "abriglass:glass_light_red"
-	},
-	run_at_every_load = false,
-	action = function(pos, node)
-		local convert = {
-			["abriglass:glass_light_green"] = 3,
-			["abriglass:glass_light_blue"] = 1,
-			["abriglass:glass_light_yellow"] = 8,
-			["abriglass:glass_light_red"] = 7,
-		}
-		minetest.set_node(pos, {name="abriglass:glass_light_hardware", param2 = convert[node.name]})
-	end,
 })
 
 -- patterned glass
