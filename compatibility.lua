@@ -45,7 +45,7 @@ for _, nodename in pairs(stainedoldnodes) do
     minetest.register_craftitem(nodename, {
         description = splitname[#splitname] .. " glass",
         wield_image = "[combine:1x1", -- no way to fake this, so nothing for now
-        inventory_image = "[inventorycube{" .. textureside .. "{" .. textureside .. "{" .. textureside,
+        inventory_image = minetest.inventorycube(textureside),
         groups = {not_in_creative_inventory = 1},
         on_place = function(itemstack, placer, pointed_thing)
             local newstack = ItemStack(minetest.itemstring_with_palette(
@@ -97,7 +97,7 @@ for _, nodename in pairs(lightoldnodes) do
     minetest.register_craftitem(nodename, {
         description = splitname[#splitname] .. " glass light",
         wield_image = "[combine:1x1", -- no way to fake this, so nothing for now
-        inventory_image = textureside, --couldnt fake a cube here, sorry
+        inventory_image = minetest.inventorycube(textureside), --couldnt fake a cube here, sorry
         groups = {not_in_creative_inventory = 1},
         on_place = function(itemstack, placer, pointed_thing)
             local newstack = ItemStack(minetest.itemstring_with_palette(
