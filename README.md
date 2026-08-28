@@ -1,6 +1,7 @@
 # Abriglass
 
 [![ContentDB](https://content.luanti.org/packages/mt-mods/abriglass/shields/downloads/)](https://content.luanti.org/packages/mt-mods/abriglass/)
+[![Translation status](https://translate.luanti.ch/widget/mt-mods/abriglass/svg-badge.svg?capitalize=1)](https://translate.luanti.ch/engage/mt-mods/)
 [![Luacheck](https://github.com/mt-mods/abriglass/actions/workflows/luacheck.yml/badge.svg)](https://github.com/mt-mods/abriglass/actions/workflows/luacheck.yml)
 
 Stained glass Luanti/Minetest mod by Shara RedCat which adds:
