@@ -1,0 +1,134 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-23 19:10-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#: compatibility.lua:49 nodes.lua:37
+msgid "@1 Glass"
+msgstr ""
+
+#: compatibility.lua:102
+msgid "@1 Glass Light"
+msgstr ""
+
+#: nodes.lua:5
+msgid "Darkened"
+msgstr ""
+
+#: nodes.lua:6
+msgid "Blue"
+msgstr ""
+
+#: nodes.lua:7
+msgid "Cyan"
+msgstr ""
+
+#: nodes.lua:8
+msgid "Green"
+msgstr ""
+
+#: nodes.lua:9
+msgid "Magenta"
+msgstr ""
+
+#: nodes.lua:10
+msgid "Orange"
+msgstr ""
+
+#: nodes.lua:11
+msgid "Purple"
+msgstr ""
+
+#: nodes.lua:12
+msgid "Red"
+msgstr ""
+
+#: nodes.lua:13
+msgid "Yellow"
+msgstr ""
+
+#: nodes.lua:14
+msgid "Frosted"
+msgstr ""
+
+#: nodes.lua:23 nodes.lua:39
+msgid "Hardware Glass"
+msgstr ""
+
+#: nodes.lua:46
+msgid "Clear Glass"
+msgstr ""
+
+#: nodes.lua:59
+msgid "Hardware Glass Light"
+msgstr ""
+
+#: nodes.lua:84 nodes.lua:85 nodes.lua:86 nodes.lua:88 nodes.lua:90
+msgid "Stained Glass"
+msgstr ""
+
+#: nodes.lua:87
+msgid "Cage Glass"
+msgstr ""
+
+#: nodes.lua:89
+msgid "Stained Glass Cross"
+msgstr ""
+
+#: nodes.lua:123
+msgid "Porthole"
+msgstr ""
+
+#: nodes.lua:150
+msgid "Dark"
+msgstr ""
+
+#: nodes.lua:151
+msgid "White"
+msgstr ""
+
+#: nodes.lua:152
+msgid "Desert Brick"
+msgstr ""
+
+#: nodes.lua:153
+msgid "Stone Brick"
+msgstr ""
+
+#: nodes.lua:154
+msgid "Sandstone Brick"
+msgstr ""
+
+#: nodes.lua:164
+msgid "@1 One-Way Glass"
+msgstr ""
+
+#: nodes.lua:192
+msgid "Dark Block"
+msgstr ""
+
+#: nodes.lua:200
+msgid "Pale Block"
+msgstr ""
+
+#: nodes.lua:209
+msgid "Ghost Crystal"
+msgstr ""
+
+#: nodes.lua:225
+msgid "Hidden Light"
+msgstr ""
